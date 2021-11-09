@@ -48,8 +48,35 @@ district_dict = {
 '45' : 'București - Sector 5',
 '46' : 'București - Sector 6',
 '51' : 'Călărași',
-'52' : 'Giurgiu'}
+'52' : 'Giurgiu'
+}
 
+demographic_dict ={
+    1:'Barbat nascut intre 1 ianuarie 1900 si 31 decembrie 1999',
+    2:'Femeie nascuta intre 1 ianuarie 1900 si 31 decembrie 1999',
+    3:'Barbat nascut intre 1 ianuarie 1800 si 31 decembrie 1899',
+    4:'Femeie nascuta intre 1 ianuarie 1800 si 31 decembrie 1899',
+    5:'Barbat nascut intre 1 ianuarie 2000 si 31 decembrie 2099',
+    6:'Femeie nascuta intre 1 ianuarie 2000 si 31 decembrie 2099',
+    7:'Barbat rezident in Romania',
+    8:'Femeie rezidenta in Romania',
+    9:'Strain'
+    }
+
+months ={
+    1: 'Ianuarie',
+    2: 'Februarie',
+    3: 'Martie',
+    4: 'Aprilie',
+    5: 'Mai',
+    6: 'Iunie',
+    7: 'Iulie',
+    8: 'August',
+    9: 'Septembrie',
+    10: 'Octombrie',
+    11: 'Noiembrie',
+    12: 'Decembrie'
+    }
 def calculate_c(cnp: str) -> int:
     array = [int(x) for x in cnp]
     array.pop()
@@ -100,13 +127,28 @@ def check_cnp(cnp) -> bool:
         return False
     return check_c(cnp, calculate_c(cnp))
 
+def print_person_info(cnp:str) -> None:
+    global district_dict
+    global months
+    global demographic_dict
+    year = int(cnp[1] + cnp[2])
+    month = int(cnp[3] + cnp[4])
+    day = int(cnp[5] + cnp[6])
+    district = int(cnp[7] + cnp[8])
+    first_digit = int(cnp[0])
+    print(demographic_dict.get(first_digit))
+    print("Nascut in: " + str(day) + "-" + months.get(month) + "-" + str(year) +
+          " , judetul " + district_dict.get(district))
+
 if __name__ == '__main__':
 
     cnp = input("Introduceti CNP: ")
     if check_cnp(cnp) == True:
         print("CNP Valid!")
+        print_person_info(cnp)
     else:
         print("CNP Invalid!")
+
 
 
 
